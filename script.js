@@ -2,7 +2,7 @@ const colorPickerBtn = document.querySelector("#color-picker");
 const clearAll = document.querySelector(".clear-all");
 const colorList = document.querySelector(".all-colors");
 
-const pickedColors = JSON.parse(localStorage.getItem("picked-colors"));
+let pickedColors = JSON.parse(localStorage.getItem("picked-colors"));
 
 const copyColor = (elem) => {
   elem.innerText = "Copied";
@@ -37,22 +37,23 @@ const showColor = () => {
 showColor();
 
 const activateEyeDropper = (event) => {
-  console.log("Hellow");
   document.body.style.display = "none";
   setTimeout(async () => {
     try {
       const eyeDropper = new EyeDropper();
       const { sRGBHex } = await eyeDropper.open();
-      navigator.clipboard.writeText(sRGBHex);
-
+      await navigator.clipboard.writeText(sRGBHex);
+      if (pickedColors == null) {
+        pickedColors = ["#000"];
+        localStorage.setItem("picked-colors", JSON.stringify(["#000"]));
+      }
       if (!pickedColors.includes(sRGBHex)) {
         pickedColors.push(sRGBHex);
         localStorage.setItem("picked-colors", JSON.stringify(pickedColors));
         showColor();
       }
     } catch (error) {
-      alert("Failed to copy the  color");
-      console.log(error);
+      alert(error);
     }
     document.body.style.display = "block";
   }, 10);
