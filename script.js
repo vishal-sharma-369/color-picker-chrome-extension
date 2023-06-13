@@ -13,7 +13,7 @@ const copyColor = (elem) => {
 };
 
 const showColor = () => {
-  if (!pickedColors.length) return;
+  if (!pickedColors || !pickedColors.length) return;
   colorList.innerHTML = pickedColors
     .map(
       (color) => `

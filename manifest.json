@@ -1,5 +1,5 @@
 {
-  "manifest-version": 3,
+  "manifest_version": 3,
   "name": "Color Picker",
   "description": "A simple color picker extension. Easily pick any color on the screen, view a history of picked colors, and copy or clear them with a single click.",
   "version": "1.0",
